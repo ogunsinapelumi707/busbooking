@@ -1,0 +1,7 @@
+const { access_token } = req.cookies;
+    console.log(access_token)
+    if (!access_token) {
+      return next("Please login to access the data");
+    }
+    const verify = jwt.verify(access_token, process.env.Jwt_seckey);
+    req.user = await User.findById(verify.id);
